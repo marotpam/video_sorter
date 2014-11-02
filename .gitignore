@@ -1,3 +1,2 @@
-opensubtitles.pyc
-movie_sorter.pyc
-ConfigParserAdapter.pyc
+*.pyc
+ConfigParser.py
