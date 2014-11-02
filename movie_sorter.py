@@ -9,15 +9,9 @@ import sys
 import argparse
 from opensubtitles import search_subtitles
 
-"""ROOT_DIR         = path.dirname( path.abspath( __file__ ) )
-
-config_file     = ROOT_DIR + '/pd2torrent.conf'
-
-ConfigParser    = ConfigParserAdapter( config_file )
-username        = ConfigParser.get( 'pd2torrent', 'username' )
-
-print( username )
-"""
+ORIGIN_DIRECTORY = #the root folder to start looking for movies
+TV_SHOWS_ROOT    = #the root folder where tv shows are stored
+MOVIES_ROOT      = #the root folder where movies are stored
 
 video_extensions = ["mkv", "mp4", "avi", "wmv"]
 hearing_impaired_prefixes = ['[', '(']
@@ -65,12 +59,12 @@ def clean_subtitles(subs_file):
 
 """Moves the parent folder of a video file to the movies_folder in test.cfg"""
 def move_to_movie_folder( video_file ):
-    dest_dir = "/Volumes/Seagate Expansion Drive/Pelis/"
+    dest_dir = MOVIES_ROOT
     move_directory( path.dirname( video_file ), dest_dir )
 
 """Moves the parent folder of a video file to the shows_folder in test.cfg"""
 def move_to_show_folder( video_file, video_info ):
-    dest_dir = "/Volumes/Seagate Expansion Drive/Series/" + video_info['series']
+    dest_dir = TV_SHOWS_ROOT + video_info['series']
     move_directory( path.dirname( video_file ), dest_dir )
 
 """Moves the file stored in origin_directory to destination_directory.
@@ -105,7 +99,7 @@ def is_in_own_subdirectory(video_file):
     video_size_perc_in_folder = str(float(video_file_size)/float(parent_file_size))
     return video_size_perc_in_folder > 0.95
 
-video_files = [f for f in get_videos_in_dir_recursive( "/Users/marcel/Downloads" )]
+video_files = [f for f in get_videos_in_dir_recursive( ORIGIN_DIRECTORY )]
 only_subtitles = False
 if ( len(sys.argv) > 1 and sys.argv[1] == "-s" ):
     only_subtitles = True
